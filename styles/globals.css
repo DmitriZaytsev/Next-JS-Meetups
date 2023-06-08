@@ -1,0 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-red-dark: #77002e;
+  --color-pink: #efc2d3;
+}
+
+body {
+  font-family: "Open Sans", "Lato", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}

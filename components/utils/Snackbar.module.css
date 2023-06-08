@@ -1,0 +1,11 @@
+.Alert {
+  width: 100%;
+  background-color: #2dbd3e;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.Alert svg {
+  font-size: 1.8rem;
+}

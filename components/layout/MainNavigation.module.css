@@ -1,0 +1,90 @@
+.header {
+  width: 100%;
+  height: 5rem;
+  display: grid;
+  grid-template-columns: 30% 55% 15%;
+  justify-items: end;
+  align-items: center;
+  background-color: var(--color-red-dark);
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  grid-column: 1;
+  justify-self: start;
+}
+
+.nav__meetups {
+  grid-column: 2;
+}
+
+/* additional selector, which uses when Stych Session is active */
+.nav__meetups.justify__center {
+  justify-self: center;
+}
+
+.header ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.nav__meetups li:last-of-type {
+  margin-left: 2rem;
+}
+
+.header a {
+  font-size: 1.5rem;
+  color: var(--color-pink);
+}
+
+.header a:hover,
+.header a:active,
+.header a.active {
+  color: white;
+}
+
+.menu {
+  grid-column: 3;
+}
+
+/**************************** CUSTOM STYLING MATERIAL UI COMPONENTS *********************************/
+
+.menuBtn {
+  background-color: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.menuBtn:hover,
+.menuBtn:active {
+  color: var(--color-pink);
+}
+
+.menuDropdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.menuDropdownList a {
+  color: #333;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuDropdownList button {
+  color: #333;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuDropdownList a:hover,
+.menuDropdownList button:hover {
+  color: var(--color-red-dark);
+}

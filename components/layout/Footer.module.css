@@ -1,0 +1,60 @@
+.footer {
+  border-top: 1px solid #333;
+  padding: 2rem 1rem 2rem 1rem;
+  background-color: var(--color-red-dark);
+}
+
+.flexcontainer {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav p {
+  font-size: 1.5rem;
+  color: #ffffffe3;
+}
+
+.nav a {
+  color: var(--color-pink);
+}
+
+.nav a:hover,
+.nav a:active,
+.nav a.active {
+  color: white;
+}
+
+.nav button {
+  color: var(--color-pink);
+  font: inherit;
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.nav button:hover,
+.nav button:active {
+  color: white;
+}
+
+.nav__title {
+  margin-bottom: 1rem;
+}
+
+.copyright {
+  margin-top: 4rem;
+  margin-right: 2rem;
+}
+
+.copyright span {
+  color: #b75a7e;
+  font-size: 0.8rem;
+  float: right;
+}
