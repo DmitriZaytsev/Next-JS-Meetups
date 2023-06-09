@@ -10,14 +10,25 @@ const Login = () => {
     const { session } = useStytchSession();
     const stytchClient = useStytch();
 
+
     const sendEmailMagicLink = (email) => {
+        const loginSignUrl = process.env.NODE_ENV === 'production'
+            ? 'https://next-js-meetings.vercel.app/authenticate'
+            : 'http://localhost:3000/authenticate';
+
+        const templateID = 'welcome_to_nextjs_meetups_';
+           
         stytchClient.magicLinks.email.loginOrCreate(email, {
-            login_magic_link_url: `http://localhost:3000/authenticate`,
-            login_expiration_minutes: 10,
-            signup_magic_link_url: `http://localhost:3000/authenticate`,
-            signup_expiration_minutes: 10,
-        });
+                login_magic_link_url: loginSignUrl,
+                login_expiration_minutes: 10,
+                signup_magic_link_url: loginSignUrl,
+                signup_expiration_minutes: 10,
+                login_template_id: templateID,
+                signup_template_id: templateID
+            });
     };
+
+
     //validation to prevent too many requests to the same email
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,8 +68,10 @@ const Login = () => {
 
             setApproveForm(prevForm => !prevForm);
 
-        } else {
+        } else if (!isValidEmail) {
             setErrorMessage('Incorrect format of email.\n Example: example@gmail.com');
+        } else {
+            setErrorMessage('Something went wrong');
         }
     };
 
@@ -68,7 +81,7 @@ const Login = () => {
                 <span>Great! Check your email.</span>
             ) : (
                 <>
-                    <input type="email" name="email" className={classes.input__mail}/>
+                    <input type="email" name="email" className={classes.input__mail} />
                     <button type="submit" className={classes.submit}>Submit</button>
                     {errorMessage && <p className={classes.error}>{errorMessage}</p>}
                 </>

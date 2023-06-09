@@ -13,7 +13,7 @@ function HomePage(props) {
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const { session } = useStytchSession();
   const router = useRouter();
-  
+
   const { message } = router.query;
 
   useEffect(() => {
@@ -21,12 +21,14 @@ function HomePage(props) {
     //authenticated added to prevent display snackbar many times
     const authenticated = localStorage.getItem('authenticated');
 
-    if (authenticated === true && message && session)
+    if (authenticated === 'true' && message && session)
 
       setSnackbarOpen(prevSnackOpen => !prevSnackOpen);
 
-    localStorage.setItem('authenticated', 'false');
+    localStorage.removeItem('authenticated');
+
   }, [message, session, router]);
+
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(prevSnackOpen => !prevSnackOpen);

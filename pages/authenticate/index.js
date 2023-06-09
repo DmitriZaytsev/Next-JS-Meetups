@@ -13,9 +13,6 @@ const Authenticate = () => {
 
   useEffect(() => {
     if (session || session?.authentication_factors.length > 2) {
-      
-      //authenticated added to prevent display snackbar many times on homepage
-      localStorage.setItem('authenticated', 'true');
 
       router.replace('/?message=Welcome to NextJs Meetups!');
 
@@ -26,6 +23,7 @@ const Authenticate = () => {
         session_duration_minutes: 7 * 24 * 60,
       });
 
+      //authenticated added to prevent display snackbar many times on homepage
       localStorage.setItem('authenticated', 'true');
 
       router.replace('/?message=Welcome to NextJs Meetups!');
