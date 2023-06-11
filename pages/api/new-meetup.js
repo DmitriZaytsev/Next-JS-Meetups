@@ -1,4 +1,4 @@
-import connectDB from '../../lib/connect-db';
+import { connectDB } from '../../lib/connect-db';
 
 async function handler(req, res) {
   if (req.method === 'POST') {

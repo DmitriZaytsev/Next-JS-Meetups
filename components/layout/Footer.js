@@ -11,8 +11,6 @@ function Footer() {
    const [isLoginModalShown, handleOpenLogin, handleCloseLogin] = useLoginModal();
    const { session } = useStytchSession();
 
-   const isSession = session || session?.authentication_factors.length > 2;
-
    //controll Alert for Logout Confirmation
    const handleAgree = () => {
       handleAgreeLogout();
@@ -20,7 +18,7 @@ function Footer() {
 
    //open login/logout modal 
    const handleOpenModal = () => {
-      if (isSession) handleOpenAlert();
+      if (session) handleOpenAlert();
       else handleOpenLogin();
    };
 
@@ -29,7 +27,7 @@ function Footer() {
          <div className={classes.flexcontainer}>
             <nav className={`${classes.nav} ${classes.nav__1}`}>
                <p className={classes.nav__title}>Accont</p>
-               {isSession ? (
+               {session ? (
                   <button onClick={handleOpenModal}>
                      Logout
                   </button>

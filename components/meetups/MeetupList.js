@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 
 import classes from './MeetupList.module.css';
 import MeetupItem from './MeetupItem';
 
-function MeetupList(props) {
+const MeetupList = forwardRef((props, ref) => {
 
   const [showMore, setShowMore] = useState(3);
 
@@ -14,7 +14,7 @@ function MeetupList(props) {
   const showedMeetups = props.meetups.slice().reverse().slice(0, showMore);
 
   return (
-    <>
+    <div ref={ref}>
       <ul className={classes.list}>
         {showedMeetups.map((meetup) => (
           <MeetupItem
@@ -33,8 +33,8 @@ function MeetupList(props) {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
-}
+});
 
 export default MeetupList;

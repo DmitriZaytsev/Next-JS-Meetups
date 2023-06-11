@@ -5,6 +5,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 
+import classes from './Alert.module.css'
+
 function AlertDialog({ open, onClose, question, message, onAgree }) {
 
     const handleClose = () => {
@@ -28,13 +30,13 @@ function AlertDialog({ open, onClose, question, message, onAgree }) {
                     {question}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    <DialogContentText id="alert-dialog-description" className={classes.questionAlert}>
                         {message}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleAgree} autoFocus>
+                    <Button onClick={handleClose} className={classes.btnAlert}>Disagree</Button>
+                    <Button onClick={handleAgree} autoFocus className={classes.btnAlert}>
                         Agree
                     </Button>
                 </DialogActions>

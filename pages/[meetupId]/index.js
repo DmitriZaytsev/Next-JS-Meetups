@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import Head from 'next/head';
 
 import MeetupDetail from '../../components/meetups/MeetupDetail';
-import connectDB from '../../lib/connect-db';
+import { connectDB } from '../../lib/connect-db';
 
 function MeetupDetails(props) {
   return (
@@ -37,7 +37,7 @@ export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
 
   const [meetupCollection, closeClient] = await connectDB();
-  
+
   const { _id, title, image, address, description } = await meetupCollection.findOne({
     _id: ObjectId(meetupId),
   });
@@ -46,11 +46,11 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-        id: _id.toString(),
-        title,
-        address,
-        image,
-        description,
+      id: _id.toString(),
+      title,
+      address,
+      image,
+      description,
     },
   };
 }

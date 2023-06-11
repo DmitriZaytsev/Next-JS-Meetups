@@ -31,11 +31,10 @@ function MainNavigation() {
   const anchorRef = useRef(null);
   const router = useRouter();
 
-  //variables for checking session and routh path
-  const isSession = session || session?.authentication_factors.length > 2;
+  //variable for checking routh path
   const routhPath = router.pathname;
 
-  //get mail
+  //get mail of current session
   const mail = session?.authentication_factors[0].email_factor.email_address;
 
   //controll Menu List 
@@ -75,14 +74,14 @@ function MainNavigation() {
   //open login/logout modal and close menu
   const handleItemClick = (e) => {
     handleCloseMenu(e);
-    if (isSession) handleOpenAlert();
+    if (session) handleOpenAlert();
     else handleOpenLogin();
   };
 
   return (
     <header className={classes.header}>
       <div className={classes.logo}>NextJS Meetups</div>
-      <nav className={`${classes.nav__meetups} ${isSession ? classes.justify__center : ''}`}>
+      <nav className={`${classes.nav__meetups} ${session ? classes.justify__center : ''}`}>
         <ul>
           <li>
             <Link href='/' className={`${routhPath === '/' ? classes.active : ''}`}>All Meetups</Link>
@@ -102,7 +101,7 @@ function MainNavigation() {
           onClick={handleToggleMenu}
           className={classes.menuBtn}
         >
-          {isSession ? mail : 'Menu'}
+          {session ? mail : 'Menu'}
           {isMenuOpen ? <ExpandLess /> : <ExpandMore />}
         </Button>
         <Popper
@@ -131,7 +130,7 @@ function MainNavigation() {
                     autoFocusItem={isMenuOpen}
                   >
                     <MenuItem component="button" onClick={handleItemClick}>
-                      {isSession ? 'Logout' : 'Login'}
+                      {session ? 'Logout' : 'Login'}
                     </MenuItem>
                     <MenuItem component="a" href="/" onClick={handleCloseMenu}>
                       Our team

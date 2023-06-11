@@ -1,33 +1,36 @@
 import { useStytchSession } from '@stytch/nextjs';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import MeetupList from '../components/meetups/MeetupList';
 import Snackbar from '../components/utils/Snackbar.js';
-import connectDB from '../lib/connect-db';
+import { connectDB } from '../lib/connect-db';
 
+import { useIsVisible } from '../lib/check-el-visible';
 
 function HomePage(props) {
-
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const { session } = useStytchSession();
   const router = useRouter();
+
+  const meetupsRef = useRef(null);
+  const isIntersecting = useIsVisible(meetupsRef);
 
   const { message } = router.query;
 
   useEffect(() => {
 
-    //authenticated added to prevent display snackbar many times
-    const authenticated = localStorage.getItem('authenticated');
+    if (message === 'Welcome to NextJs Meetups!') {
+      if (sessionStorage.getItem('isSnackbarShown') === 'false' && isIntersecting && session) {
 
-    if (authenticated === 'true' && message && session)
+        setSnackbarOpen(prevSnackOpen => !prevSnackOpen);
 
-      setSnackbarOpen(prevSnackOpen => !prevSnackOpen);
-
-    localStorage.removeItem('authenticated');
-
-  }, [message, session, router]);
+        //prevent display snackbar many times after reload page
+        sessionStorage.setItem('isSnackbarShown', 'true');
+      }
+    }
+  }, [message, session, router, isIntersecting]);
 
 
   const handleSnackbarClose = () => {
@@ -43,7 +46,7 @@ function HomePage(props) {
           content='Browse a huge list of highly active NextJS meetups!'
         />
       </Head>
-      <MeetupList meetups={props.meetups} />
+      <MeetupList meetups={props.meetups} ref={meetupsRef} />
       <Snackbar open={isSnackbarOpen} message={message} onClose={handleSnackbarClose} />
     </>
   );

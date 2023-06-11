@@ -1,37 +1,56 @@
 import { useStytch, useStytchSession } from '@stytch/nextjs';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import Head from 'next/head';
 
 import Loading from '../../components/utils/Loading';
 
 
 const Authenticate = () => {
+  const [calledPush, setCalledPush] = useState(false);
   const { session } = useStytchSession();
   const stytchClient = useStytch();
   const router = useRouter();
 
   useEffect(() => {
-    if (session || session?.authentication_factors.length > 2) {
+    if (session) {
+      if (calledPush) {
+        return;
+      }
 
       router.replace('/?message=Welcome to NextJs Meetups!');
-
     } else {
-      const token = new URLSearchParams(window.location.search).get('token');
+      if (calledPush) {
+        return;
+      }
 
-      stytchClient.magicLinks.authenticate(token, {
-        session_duration_minutes: 7 * 24 * 60,
-      });
+      const authenticateUser = async () => {
+        try {
+          const token = router.query.token;
 
-      //authenticated added to prevent display snackbar many times on homepage
-      localStorage.setItem('authenticated', 'true');
+          await stytchClient.magicLinks.authenticate(token, {
+            session_duration_minutes: 7 * 24 * 60,
+          });
 
-      router.replace('/?message=Welcome to NextJs Meetups!');
+          //prevent display snackbar many times after reload page
+          sessionStorage.setItem('isSnackbarShown', 'false');
 
-      //reset attempts for validation if user will try to login again
-      localStorage.removeItem('emailAttempts');
+          router.replace('/?message=Welcome to NextJs Meetups!');
+
+          setCalledPush(true);
+
+          localStorage.removeItem('emailAttempts');
+
+        } catch (error) {
+          console.error(error);
+          router.replace('/');
+        }
+      };
+
+      authenticateUser();
     }
-  }, [stytchClient, session, router]);
+  }, [stytchClient, session, router, calledPush]);
+
 
   return (
     <>
