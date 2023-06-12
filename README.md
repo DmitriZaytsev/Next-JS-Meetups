@@ -109,7 +109,7 @@ flexWrap: 'wrap',
 
 <br>
 
-3. Created Unit tests with Jest.
+3. Created Unit tests with Jest, React Testing Library and jest-dom
  
    <br>
 
@@ -168,8 +168,7 @@ flexWrap: 'wrap',
                 {errors.image && <p>Image URL is required.</p>}
                 </div>
                                 ...
-
-<br>
+                                
 
 5. Created custom hooks to:
 
