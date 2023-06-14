@@ -248,7 +248,7 @@ const showedMeetups = props.meetups.slice().reverse().slice(0, showMore);
 
 3.  Open site in browser:
 
-        npm start
+        npm run dev
 
 You can replace "npm" with the word "yarn", if you use it.
 
